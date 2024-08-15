@@ -80,15 +80,17 @@ int wmain(int argc, wchar_t* argv[])
 	PrintPattern(aPattern, cbPatternLen);
 #endif
 
-	//	Searching for process and its target module
+	//	Searching for the process
 	hProcess = GetProcessByWindowName(wszWindowName);
 	LOG_IF(hProcess == NULL, FATAL);
+
+	//	Searching for the target module
 	hTargetModule = GetProcessTargetModule(hProcess, wszTargetModuleName);
 	LOG_IF(hTargetModule == NULL, FATAL);
 	GetModuleInformation(hProcess, hTargetModule, &TargetModuleInfo, sizeof(TargetModuleInfo));
 	LOG(INFO) << "TargetModuleInfo.lpBaseOfDll: 0x" << std::hex << TargetModuleInfo.lpBaseOfDll;
 
-	//	Reading process memory to buffer
+	//	Reading the target module memory to buffer
 	pBuffer = malloc(TargetModuleInfo.SizeOfImage);
 	LOG_IF(pBuffer == NULL, FATAL);
 	cbBufferLen = TargetModuleInfo.SizeOfImage;
