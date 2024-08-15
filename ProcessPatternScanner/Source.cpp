@@ -37,8 +37,7 @@ void PrintPatternMatchesAddresses(
 	LPCVOID pPattern,
 	SIZE_T cbPatternLen)
 {
-	for (int i = 0; i < cbBufferLen - cbPatternLen; i++)
-	{
+	for (int i = 0; i < cbBufferLen - cbPatternLen; i++) {
 		if (memcmp((const char*)pBuffer + i, pPattern, cbPatternLen) == 0) {
 			printf("%p\n", (const char*)pBaseOfDll + i);
 		}
